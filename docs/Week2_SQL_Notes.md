@@ -32,3 +32,41 @@ ORDER BY Sales DESC;
 SELECT *
 FROM sales
 WHERE Category = 'Technology';
+
+## day2 queries
+1.SELECT SUM(Sales) AS Total_Sales
+FROM sales;
+2.SELECT SUM(Profit) AS Total_Profit
+FROM sales;
+3.SELECT AVG(Sales) AS Average_Sales
+FROM sales;
+4.SELECT MAX(Sales) AS Highest_Sale
+FROM sales;
+5.SELECT MIN(Profit) AS Lowest_Profit
+FROM sales;
+6.SELECT Category,SUM(Sales) AS Total_Sales
+FROM sales
+GROUP BY Category;
+7.SELECT Category,SUM(Profit) AS Total_Profit
+FROM sales
+GROUP BY Category;
+8.SELECT Region,SUM(Sales) AS Total_Sales
+FROM sales
+GROUP BY Region;
+9.SELECT "Customer.Name",SUM(Sales) AS Total_Sales
+FROM sales
+GROUP BY "Customer.Name"
+ORDER BY Total_Sales DESC
+LIMIT 10;
+10.SELECT "Product.Name",SUM(Sales) AS Total_Sales
+FROM sales
+GROUP BY "Product.Name"
+ORDER BY Total_Sales DESC
+LIMIT 10;
+11.SELECT Category,SUM(Sales) AS Total_Sales
+FROM sales
+GROUP BY Category
+HAVING SUM(Sales) > 100000;
+12.SELECT Region,COUNT(*) AS Total_Orders
+FROM sales
+GROUP BY Region;
