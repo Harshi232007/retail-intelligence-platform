@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 import sqlite3
 
 app = FastAPI()
@@ -165,3 +165,98 @@ def total_orders():
     return {
         "Total Orders": total
     }
+@app.get("/product/{product_name}")
+def get_product(product_name: str):
+
+    conn = get_connection()
+
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT *
+        FROM sales
+        WHERE Product_Name LIKE ?
+        LIMIT 20
+    """, ('%' + product_name + '%',))
+
+    rows = cursor.fetchall()
+
+    conn.close()
+
+    if not rows:
+        raise HTTPException(status_code=404,
+                            detail="Product not found")
+
+    return [dict(row) for row in rows]
+@app.get("/category/{category}")
+def category_filter(category: str):
+
+    conn = get_connection()
+
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT *
+        FROM sales
+        WHERE Category = ?
+    """, (category,))
+
+    rows = cursor.fetchall()
+
+    conn.close()
+
+    return [dict(row) for row in rows]
+@app.get("/region/{region}")
+def region_filter(region: str):
+
+    conn = get_connection()
+
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT *
+        FROM sales
+        WHERE Region = ?
+    """, (region,))
+
+    rows = cursor.fetchall()
+
+    conn.close()
+
+    return [dict(row) for row in rows]
+@app.get("/state/{state}")
+def state_filter(state: str):
+
+    conn = get_connection()
+
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT *
+        FROM sales
+        WHERE State = ?
+    """, (state,))
+
+    rows = cursor.fetchall()
+
+    conn.close()
+
+    return [dict(row) for row in rows]
+@app.get("/customer/{customer}")
+def search_customer(customer: str):
+
+    conn = get_connection()
+
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT *
+        FROM sales
+        WHERE Customer_Name LIKE ?
+    """, ('%' + customer + '%',))
+
+    rows = cursor.fetchall()
+
+    conn.close()
+
+    return [dict(row) for row in rows]
