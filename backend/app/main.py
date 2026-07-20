@@ -68,3 +68,100 @@ def categories():
     conn.close()
 
     return [dict(row) for row in rows]
+@app.get("/sales_by_category")
+def sales_by_category():
+
+    conn = get_connection()
+
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT Category,
+               SUM(Sales) AS Total_Sales
+        FROM sales
+        GROUP BY Category
+    """)
+
+    rows = cursor.fetchall()
+
+    conn.close()
+
+    return [dict(row) for row in rows]
+@app.get("/profit_by_category")
+def profit_by_category():
+
+    conn = get_connection()
+
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT Category,
+               SUM(Profit) AS Total_Profit
+        FROM sales
+        GROUP BY Category
+    """)
+
+    rows = cursor.fetchall()
+
+    conn.close()
+
+    return [dict(row) for row in rows]
+@app.get("/sales_by_region")
+def sales_by_region():
+
+    conn = get_connection()
+
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT Region,
+               SUM(Sales) AS Total_Sales
+        FROM sales
+        GROUP BY Region
+    """)
+
+    rows = cursor.fetchall()
+
+    conn.close()
+
+    return [dict(row) for row in rows]
+@app.get("/top_products")
+def top_products():
+
+    conn = get_connection()
+
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT Product_Name,
+               SUM(Sales) AS Sales
+        FROM sales
+        GROUP BY Product_Name
+        ORDER BY Sales DESC
+        LIMIT 10
+    """)
+
+    rows = cursor.fetchall()
+
+    conn.close()
+
+    return [dict(row) for row in rows]
+@app.get("/total_orders")
+def total_orders():
+
+    conn = get_connection()
+
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT COUNT(*)
+        FROM sales
+    """)
+
+    total = cursor.fetchone()[0]
+
+    conn.close()
+
+    return {
+        "Total Orders": total
+    }
