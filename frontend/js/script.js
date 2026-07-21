@@ -1,0 +1,1 @@
+console.log("Retail Intelligence Platform Loaded");
