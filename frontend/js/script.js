@@ -96,3 +96,25 @@ data: values
 });
 
 });
+const searchBox = document.getElementById("searchProduct");
+
+searchBox.addEventListener("keyup", function(){
+
+    const filter = this.value.toLowerCase();
+
+    const rows = document.querySelectorAll("#productTable tr");
+
+    rows.forEach(row => {
+
+        const text = row.innerText.toLowerCase();
+
+        if(text.includes(filter)){
+            row.style.display = "";
+        }
+        else{
+            row.style.display = "none";
+        }
+
+    });
+
+});
