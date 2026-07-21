@@ -259,3 +259,32 @@ def search_customer(customer: str):
     conn.close()
 
     return [dict(row) for row in rows]
+@router.get("/products_by_category/{category}")
+def products_by_category(category: str):
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    if category == "All":
+        cursor.execute("""
+            SELECT "Product.Name", Category, SUM(Sales) AS Sales
+            FROM sales
+            GROUP BY "Product.Name", Category
+            ORDER BY Sales DESC
+            LIMIT 20
+        """)
+    else:
+        cursor.execute("""
+            SELECT "Product.Name", Category, SUM(Sales) AS Sales
+            FROM sales
+            WHERE Category = ?
+            GROUP BY "Product.Name", Category
+            ORDER BY Sales DESC
+            LIMIT 20
+        """, (category,))
+
+    rows = cursor.fetchall()
+
+    conn.close()
+
+    return [dict(row) for row in rows]
