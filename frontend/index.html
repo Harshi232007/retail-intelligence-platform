@@ -14,33 +14,50 @@
 <body>
 
 <header>
-
-<h1>Retail Intelligence Platform</h1>
-
+    <h1>Retail Intelligence Platform</h1>
 </header>
 
 <div class="container">
 
-<div class="cards">
+    <!-- KPI Cards -->
+    <div class="cards">
 
-<div class="card">
-<h2>Total Sales</h2>
-<p id="sales">$0</p>
+        <div class="card">
+            <h2>Total Sales</h2>
+            <p id="sales">$0</p>
+        </div>
+
+        <div class="card">
+            <h2>Total Profit</h2>
+            <p id="profit">$0</p>
+        </div>
+
+        <div class="card">
+            <h2>Total Orders</h2>
+            <p id="orders">0</p>
+        </div>
+
+    </div>
+    <div class="cards">
+
+    <div class="card">
+        <h2>Furniture Sales</h2>
+        <p id="furnitureSales">$0</p>
+    </div>
+
+    <div class="card">
+        <h2>Technology Sales</h2>
+        <p id="technologySales">$0</p>
+    </div>
+
+    <div class="card">
+        <h2>Office Supplies Sales</h2>
+        <p id="officeSales">$0</p>
+    </div>
+
 </div>
 
-<div class="card">
-<h2>Total Profit</h2>
-<p id="profit">$0</p>
-</div>
-
-<div class="card">
-<h2>Total Orders</h2>
-<p id="orders">0</p>
-</div>
-
-</div>
-
-<div class="charts">
+    <div class="charts">
 
     <div class="chart-box">
         <h2>Sales by Category</h2>
@@ -52,42 +69,108 @@
         <canvas id="profitChart"></canvas>
     </div>
 
+    <div class="chart-box">
+        <h2>Sales by Region</h2>
+        <canvas id="regionChart"></canvas>
+    </div>
+    <div class="chart-box">
+    <h2>Monthly Sales Trend</h2>
+    <canvas id="monthlyChart"></canvas>
 </div>
-
-<div class="table-box">
-
-<h2>Top Products</h2>
-<input
-type="text"
-id="searchProduct"
-placeholder="Search Product..."
-style="width:100%;
-padding:10px;
-margin-bottom:15px;
-border:1px solid #ccc;
-border-radius:6px;">
-
-
-<table>
-
-<thead>
-
-<tr>
-<th>Product</th>
-<th>Sales</th>
-</tr>
-
-</thead>
-
-<tbody id="productTable">
-
-</tbody>
-
-</table>
-
+<div class="chart-box">
+    <h2>Monthly Profit Trend</h2>
+    <canvas id="monthlyProfitChart"></canvas>
+</div>
+<div class="chart-box">
+    <h2>Top 10 States by Sales</h2>
+    <canvas id="stateChart"></canvas>
+</div>
+<div class="chart-box">
+    <h2>Top 10 Customers by Profit</h2>
+    <canvas id="customerProfitChart"></canvas>
 </div>
 
 </div>
+
+    <!-- Top Products -->
+    <div class="table-box">
+
+        <h2>Top Products</h2>
+
+        <!-- Category Filter -->
+        <div style="margin-bottom:15px;">
+
+            <label><b>Select Category:</b></label>
+
+            <select id="categoryFilter">
+
+                <option value="All">All</option>
+                <option value="Furniture">Furniture</option>
+                <option value="Technology">Technology</option>
+                <option value="Office Supplies">Office Supplies</option>
+
+            </select>
+
+        </div>
+        
+
+        <!-- Search Box -->
+        <input
+            type="text"
+            id="searchProduct"
+            placeholder="Search Product..."
+            style="
+                width:100%;
+                padding:10px;
+                margin-bottom:15px;
+                border:1px solid #ccc;
+                border-radius:6px;
+            ">
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>Product</th>
+                    <th>Category</th>
+                    <th>Sales</th>
+                </tr>
+
+            </thead>
+
+            <tbody id="productTable">
+
+            </tbody>
+
+        </table>
+
+    </div>
+    <div class="table-box">
+
+    <h2>Top Customers</h2>
+
+    <table>
+
+        <thead>
+
+            <tr>
+                <th>Customer</th>
+                <th>Sales</th>
+            </tr>
+
+        </thead>
+
+        <tbody id="customerTable">
+
+        </tbody>
+
+    </table>
+
+</div>
+
+</div>
+
 
 <script src="js/script.js"></script>
 
