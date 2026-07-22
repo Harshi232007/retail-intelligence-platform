@@ -346,3 +346,23 @@ def monthly_sales():
     conn.close()
 
     return [dict(row) for row in rows]
+@router.get("/monthly_profit")
+def monthly_profit():
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT
+            substr("Order.Date", 6, 2) AS Month,
+            SUM(Profit) AS Total_Profit
+        FROM sales
+        GROUP BY Month
+        ORDER BY Month
+    """)
+
+    rows = cursor.fetchall()
+
+    conn.close()
+
+    return [dict(row) for row in rows]
