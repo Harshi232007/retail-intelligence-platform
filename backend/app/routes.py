@@ -308,3 +308,21 @@ def top_customers():
     conn.close()
 
     return [dict(row) for row in rows]
+@router.get("/category_summary")
+def category_summary():
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT Category,
+               SUM(Sales) AS Total_Sales
+        FROM sales
+        GROUP BY Category
+    """)
+
+    rows = cursor.fetchall()
+
+    conn.close()
+
+    return [dict(row) for row in rows]
