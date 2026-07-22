@@ -386,3 +386,23 @@ def top_states():
     conn.close()
 
     return [dict(row) for row in rows]
+@router.get("/top_customers_profit")
+def top_customers_profit():
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT "Customer.Name",
+               SUM(Profit) AS Total_Profit
+        FROM sales
+        GROUP BY "Customer.Name"
+        ORDER BY Total_Profit DESC
+        LIMIT 10
+    """)
+
+    rows = cursor.fetchall()
+
+    conn.close()
+
+    return [dict(row) for row in rows]
