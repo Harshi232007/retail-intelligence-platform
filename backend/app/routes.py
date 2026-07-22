@@ -288,3 +288,23 @@ def products_by_category(category: str):
     conn.close()
 
     return [dict(row) for row in rows]
+@router.get("/top_customers")
+def top_customers():
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT "Customer.Name",
+               SUM(Sales) AS Sales
+        FROM sales
+        GROUP BY "Customer.Name"
+        ORDER BY Sales DESC
+        LIMIT 10
+    """)
+
+    rows = cursor.fetchall()
+
+    conn.close()
+
+    return [dict(row) for row in rows]
