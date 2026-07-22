@@ -366,3 +366,23 @@ def monthly_profit():
     conn.close()
 
     return [dict(row) for row in rows]
+@router.get("/top_states")
+def top_states():
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT State,
+               SUM(Sales) AS Total_Sales
+        FROM sales
+        GROUP BY State
+        ORDER BY Total_Sales DESC
+        LIMIT 10
+    """)
+
+    rows = cursor.fetchall()
+
+    conn.close()
+
+    return [dict(row) for row in rows]
